@@ -341,6 +341,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: PLAYER
       objectReference: {fileID: 0}
+    - target: {fileID: 3522052311635457832, guid: cf9beb4a723ac884ab92046aef04488f,
+        type: 3}
+      propertyPath: channel
+      value: 
+      objectReference: {fileID: 11400000, guid: f579408929178ea4b84a57daf21e2391,
+        type: 2}
     - target: {fileID: 3522052311635457839, guid: cf9beb4a723ac884ab92046aef04488f,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -16,10 +16,85 @@ public class Attack : MonoBehaviour
     PlayerMovement scriptMovement;
     public float charging = 0.5f;
     public bool powerfullAttacker;
-    public float WantPowered=0.4f;
+    public float WantPowered = 0.4f;
     private float attackSpeed;
     bool StartCount;
     bool AttackTime;
+
+    public PlayerSO channel;
+
+    private void OnEnable()
+    {
+        channel.onAttackSide += AttackSide;
+        channel.onAttackSide += SideAnimations;
+        channel.onAttackSide += AttackSound;
+
+        channel.onAttackUp += AttackUp;
+        channel.onAttackUp += UpAnimations;
+        channel.onAttackUp += AttackSound;
+
+        channel.onAttackDown += AttackDown;
+        channel.onAttackDown += DownAnimations;
+        channel.onAttackDown += AttackSound;
+    }
+
+    private void OnDisable()
+    {
+        channel.onAttackSide -= AttackSide;
+        channel.onAttackSide -= SideAnimations;
+        channel.onAttackSide -= AttackSound;
+
+        channel.onAttackUp -= AttackUp;
+        channel.onAttackUp -= UpAnimations;
+        channel.onAttackUp -= AttackSound;
+
+        channel.onAttackDown -= AttackDown;
+        channel.onAttackDown -= DownAnimations;
+        channel.onAttackDown -= AttackSound;
+    }
+
+    public void AttackSide()
+    {
+        StartCoroutine(playerAttackside());
+        AttackTime = false;
+    }
+    public void SideAnimations()
+    {
+        PlayerMovement.Animator.SetLayerWeight(1, 1);
+        PlayerMovement.Animator.SetTrigger("attack");
+        PlayerMovement.Animator.SetBool("justAttacked", true);
+        Debug.Log("you just attacked");
+        StartCount = true;
+    }
+    public void AttackSound()
+    {
+        //Implementar
+    }
+
+    public void AttackUp()
+    {
+        StartCoroutine(PlayerAttackUpside());
+        AttackTime = false;
+    }
+    public void UpAnimations()
+    {
+        PlayerMovement.Animator.SetLayerWeight(1, 1);
+        PlayerMovement.Animator.SetTrigger("attackUp");
+
+        Debug.Log("pegaste pa arriba mi loco");
+    }
+
+    public void AttackDown()
+    {
+        StartCoroutine(PlayerAttackDownside());
+        AttackTime = false;
+    }
+    public void DownAnimations()
+    {
+        PlayerMovement.Animator.SetLayerWeight(1, 1);
+        PlayerMovement.Animator.SetTrigger("attackDown");
+        Debug.Log("mi loco sos la verga, pegaste pa bajo");
+    }
 
 
     void Start()
@@ -35,35 +110,16 @@ public class Attack : MonoBehaviour
     {
         if (canAttack == true && Input.GetKeyDown(KeyCode.X) && Input.GetKey(KeyCode.UpArrow) && AttackTime==true)
         {
-            StartCoroutine(PlayerAttackUpside());
-            AttackTime = false;
-            // sonido de ataque
-            PlayerMovement.Animator.SetLayerWeight(1, 1);
-            PlayerMovement.Animator.SetTrigger("attackUp");
-
-            Debug.Log("pegaste pa arriba mi loco");
+            channel.onUpAttack();
         }
         else if (scriptMovement.grounded == false && canAttack == true && Input.GetKeyDown(KeyCode.X) && Input.GetKey(KeyCode.DownArrow) && AttackTime==true)
         {
-            StartCoroutine(PlayerAttackDownside());
-            AttackTime = false;
-            // sonido de ataque
-            PlayerMovement.Animator.SetLayerWeight(1, 1);
-            PlayerMovement.Animator.SetTrigger("attackDown");
 
-            Debug.Log("mi loco sos la verga, pegaste pa bajo");
+            channel.onDownAttack();
         }
         else if (canAttack == true && Input.GetKeyDown(KeyCode.X) && !Input.GetKey(KeyCode.UpArrow) && AttackTime==true)
         {
-            StartCoroutine(playerAttackside());
-            AttackTime = false;
-            // sonido de ataque
-            // animación de ataque
-            PlayerMovement.Animator.SetLayerWeight(1, 1);
-            PlayerMovement.Animator.SetTrigger("attack");
-            PlayerMovement.Animator.SetBool("justAttacked", true);
-            Debug.Log("you just attacked");
-            StartCount = true;
+            channel.onSideAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.X) && attackSpeed < 1.3f && AttackTime == true)
