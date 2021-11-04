@@ -72,7 +72,7 @@ public class Peoplegenerator : MonoBehaviour
             randToPosition = Random.Range(-0.279f, 0.3f);
             randPerson = Random.Range(0, 8);
             secondsToWait = Random.Range(0.6f, 2.3f);
-            //thisPerson = Instantiate(AllPersons[randPerson], Spawnpoint);
+            //thisPerson = Instantiate(AllPersons[randPerson], Spawnpoint); // INSTANCIA ANTIGUA
             thisPerson = objectPooler.SpawnFromPool(IntToTag(randPerson), Spawnpoint.position, Spawnpoint.rotation);
             peoplewalkCode = thisPerson.GetComponent<WalkingPeople>();
             if (gameObject.CompareTag("GenX"))
@@ -103,7 +103,7 @@ public class Peoplegenerator : MonoBehaviour
             randToPosition2 = Random.Range(-0.279f, 0.3f);
             randPerson2 = Random.Range(0, 8);
             secondsToWait2 = Random.Range(0.6f, 2.3f);
-            //thisPerson2 = Instantiate(AllPersons[randPerson2], Spawnpoint2);
+            //thisPerson2 = Instantiate(AllPersons[randPerson2], Spawnpoint2); // INSTANCIA ANTIGUA
             thisPerson2 = objectPooler.SpawnFromPool(IntToTag(randPerson2), Spawnpoint2.position, Spawnpoint2.rotation);
             peoepleCodeWalk2 = thisPerson2.GetComponent<WalkingPeople>();
             if (gameObject.CompareTag("GenX"))
