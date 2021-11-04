@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUp1 : MonoBehaviour
+public class PickUp1 : MonoBehaviour,IPickUps // O (por la interfaz cerrada a cambios pero abierta a cambios) y D (depende de una interfaz y depende de un clase inventory),
+                                              // L (entre el inventory y el pickup se permite expandir sin generar daños a la base de la estructura)
 {
     Inventory invScript;
     public GameObject Player;
@@ -12,9 +13,21 @@ public class PickUp1 : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
-            invScript = Player.GetComponent<Inventory>();
-            invScript.GetMoney();
+            PickingUp();
+            SoundFx();
         }
     }
+
+    public void PickingUp() // nuevo Cashing implementado...
+    {
+        gameObject.SetActive(false);
+        Inventory.Instance.GetMoney();
+        Inventory.Instance.MoneyDisplay();
+    }
+
+    public void SoundFx()
+    {
+       //codigo para añadir sonido 
+    }
 }
+

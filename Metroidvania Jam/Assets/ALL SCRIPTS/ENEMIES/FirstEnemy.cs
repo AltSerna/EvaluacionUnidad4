@@ -41,7 +41,7 @@ public class FirstEnemy : MonoBehaviour
         enemiesKilled++;
         while (CoinsAmmount >= 0)
         {
-            Instantiate(coins, transform.position, transform.rotation);
+            ObjectPooler.Instance.SpawnFromPool("coins", gameObject.transform); 
             CoinsAmmount--;
         }
     }

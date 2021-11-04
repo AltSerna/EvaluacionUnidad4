@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour // S (se encargarga solamente de administar la monedas del player)
 {
-    static int money=0;
+    static int money = 0;
     private TextMeshProUGUI CoinsDisplay;
     int displayMoney;
+
+    #region Singleton
+    public static Inventory Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+    #endregion
 
     private void Start()
     {
@@ -19,9 +28,10 @@ public class Inventory : MonoBehaviour
         money++;
     }
 
-    private void Update()
+    public void MoneyDisplay()
     {
         displayMoney = money;
         CoinsDisplay.text = displayMoney.ToString();
     }
 }
+
