@@ -70,7 +70,7 @@ public class CarsGenerator : MonoBehaviour
         {
             otherRandCar = Random.Range(0, 7);        //int
             secondsToWait = Random.Range(0.6f, 2.3f);   //float
-            //thisCar=Instantiate(AllCars[otherRandCar], Spawnpoint); // INSTANCIA
+            //thisCar=Instantiate(AllCars[otherRandCar], Spawnpoint); // INSTANCIA ANTIGUA
             thisCar = objectPooler.SpawnFromPool(IntToTag(otherRandCar), Spawnpoint.position, Spawnpoint.rotation);
             CarsMovingCode = thisCar.GetComponent<CarsMoving>();
             if(gameObject.CompareTag("GenX"))
@@ -98,7 +98,7 @@ public class CarsGenerator : MonoBehaviour
         {
             randCar = Random.Range(0, 7);
             secondsToWait = Random.Range(0.6f, 2.3f);
-            //thisCar = Instantiate(AllCars[randCar], otherSpawnpoint);
+            //thisCar = Instantiate(AllCars[randCar], otherSpawnpoint);//  INSTANCIA ANTIGUA
             thisCar = objectPooler.SpawnFromPool(IntToTag(randCar), otherSpawnpoint.position, otherSpawnpoint.rotation);
             CarsMovingCode = thisCar.GetComponent<CarsMoving>();
             if (gameObject.CompareTag("GenX"))
